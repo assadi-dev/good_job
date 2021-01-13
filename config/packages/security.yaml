@@ -1,0 +1,108 @@
+security:
+    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+    encoders:
+        App\Entity\Candidat:
+            algorithm: auto
+        App\Entity\Recruteur:
+            algorithm: auto
+        App\Entity\Connection:
+            algorithm: auto
+
+    providers:
+        chanin_provider:
+            chain:
+                providers: [candidat_provider, recruteur_provider,connexion_provider]
+        users_in_memory: { memory: null }
+
+        connexion_provider: 
+            entity:
+                class : App\Entity\Connection
+                property: username
+
+        candidat_provider:
+            entity:
+                class : App\Entity\Candidat
+                property: email
+
+        recruteur_provider:
+            entity:
+                class : App\Entity\Recruteur
+                property: email
+
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+
+        main: 
+            pattern: ^/
+            anonymous: true
+            lazy: true
+            provider: connexion_provider
+
+            form_login: 
+                login_path: login
+                check_path: login
+                default_target_path: accueil
+
+            logout:
+                path: logout
+                target: accueil
+
+
+
+        #candidat:
+            #pattern: ^/(home|candidat|espace/candidat)
+            #anonymous: true
+            #lazy: true
+            #provider: candidat_provider
+
+            
+            #form_login: 
+                #login_path: login_candidat
+                #check_path: login_candidat
+                #default_target_path: accueil
+            
+            #logout:
+                #path: logout_candidat
+                #target: accueil
+
+
+        #recruteur:
+            #pattern: ^/(home|recruteur|espace/recruteur|offre)/
+            #lazy: true
+            #anonymous: true
+            #provider: recruteur_provider
+
+            #form_login: 
+                #login_path: login_recruteur
+                #check_path: login_recruteur
+                #default_target_path: accueil
+            
+            #logout:
+                #path: logout_recruteur
+                #target: accueil       
+
+
+
+            # activate different ways to authenticate
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
+
+            # https://symfony.com/doc/current/security/impersonating_user.html
+            # switch_user: true
+
+    # Easy way to control access for large sections of your site
+    # Note: Only the *first* access control that matches will be used
+    access_control:
+        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # - { path: ^/profile, roles: ROLE_USER }
+            #- { path: ^/ , roles: ROLE_VISITEUR}
+            - { path: ^/offre, roles: [IS_AUTHENTICATED_FULLY,ROLE_CANDIDAT,ROLE_RECRUTEUR] }
+            - { path: ^/espace/candidat, roles: ROLE_CANDIDAT}
+            - { path: ^/espace/recruteur, roles: ROLE_RECRUTEUR }
+
+
+    #role_hierarchy:
+        #ROLE_CANDIDAT : ROLE_VISITEUR
+       # ROLE_RECRUTEUR : ROLE_CANDIDAT

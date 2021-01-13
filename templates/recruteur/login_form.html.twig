@@ -1,0 +1,5 @@
+{% extends 'login_template.html.twig' %}
+
+{% block header %}
+	<h1>{{ app.request.get('_route') }}</h1>
+{% endblock %}

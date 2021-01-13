@@ -1,0 +1,118 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Espace Candidat
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="/css/home.css">
+	<link rel="stylesheet" href="/css/offres.css">
+{% endblock %}
+
+{% block body %}
+
+	{% include "extension/navBar.html.twig" %}
+
+
+	<div>
+
+
+		<div class="row col">
+			<div class="my-3 text-center">
+				<h1>Mon Espace Candidat</h1>
+				<p>John Wick</p>
+			</div>
+			<div
+				class="col-sm-8 mx-auto">
+				<!-- Tabs navs -->
+				<ul class="nav nav-tabs mb-3 col-sm-6 mx-auto" id="ex1" role="tablist">
+					<li class="nav-item" role="presentation">
+						<a class="nav-link active" id="ex1-tab-1" data-mdb-toggle="tab" href="#ex1-tabs-1" role="tab" aria-controls="ex1-tabs-1" aria-selected="true">Mes candidatures</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" id="ex1-tab-2" data-mdb-toggle="tab" href="#ex1-tabs-2" role="tab" aria-controls="ex1-tabs-2" aria-selected="false">Mes Favories</a>
+					</li>
+					<li class="nav-item" role="presentation">
+						<a class="nav-link" id="ex1-tab-3" data-mdb-toggle="tab" href="#ex1-tabs-3" role="tab" aria-controls="ex1-tabs-3" aria-selected="false">Mon Profile</a>
+					</li>
+				</ul>
+				<!-- Tabs navs -->
+
+				<!-- Tabs content -->
+				<div class="tab-content" id="ex1-content">
+					<div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
+						<div class=" mx-auto">
+							<table class="table table-hover">
+
+								<caption>
+									Listes des candidatures
+								</caption>
+								<thead class="table-light text-center">
+									<tr>
+										<th scope="col">ID Offre</th>
+										<th scope="col">Offres</th>
+										<th scope="col">Disponible</th>
+										<th scope="col">Reponse</th>
+										<th scop="col">Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									{% for item in candidatures %}
+										<tr>
+											<th scope="row">{{item.idOffre}}</th>
+											<td>{{item.offre}}</td>
+											<td>{{item.disponible}}</td>
+											<td>
+												{% if item.reponse == "candidature en cours" %}
+
+													{% set color = "fw-bold text-warning" %}
+
+												{% elseif item.reponse == "Accépté" %}
+
+													{% set color = "fw-bold text-success" %}
+
+												{% else %}
+
+													{% set color = "fw-bold text-danger" %}
+
+												{% endif %}
+												<span class="{{color}}">{{item.reponse}}</span>
+
+
+											</td>
+											<td class="p-3 text-center">
+												<a class="btn btn-primary btn-rounded my-auto" href="{{path('offre',{'id':item.idOffre})}}">voir l'offre</a>
+											</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+
+
+					</div>
+					<div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+						{{ include ("home/card_list_offre.html.twig",{offres}) }}
+					</div>
+					<div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="card-title">Card title</h5>
+								<p class="card-text">
+									Some quick example text to build on the card title and make up the bulk of the
+																																																																																																																																																																																																																																																			      card's content.
+								</p>
+								<button type="button" class="btn btn-primary">Button</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- Tabs content -->
+			</div>
+
+
+		</div>
+
+	</div>
+
+
+{% endblock %}

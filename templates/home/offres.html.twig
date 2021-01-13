@@ -1,0 +1,33 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	{{offre.name}}
+{% endblock %}
+
+{% block stylesheets %}
+
+	<link rel="stylesheet" href="/css/offres.css">
+{% endblock %}
+
+{% block body %}
+
+	{% include "/extension/navBar.html.twig" %}
+	<!-- Jumbotron -->
+	<div class="p-5 text-center bg-light">
+		<h5 class="mb-1">{{offre.entreprise}}</h5>
+		<h1 class="mb-3">{{offre.poste}}</h1>
+
+		<div class="d-flex justify-content-sm-center my-3">
+			<span class="cdi_icon_offre">
+				<i class="fas fa-clipboard-list"></i>
+				{{offre.contrat}}</span>
+			<span class="map_icon_offre">
+				<i class="fas fa-map-marker-alt"></i>
+				{{offre.ville}}</span>
+		</div>
+		<a class="btn btn-primary" href="" role="button">Postuler</a>
+	</div>
+	<!-- Jumbotron -->
+
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+
+{% block stylesheets %}
+	<!-- Flickity CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+	<link rel="stylesheet" href="/css/carousel_style.css">
+	<link rel="stylesheet" href="/css/home.css">
+{% endblock %}
+
+{% block body %}
+	<div id="root"></div>
+{% endblock %}
+
+
+{% block javascripts %}
+
+	<!-- Flickity JavaScript -->
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+	<script src="/js/carousel.js"></script>
+
+
+{% endblock %}

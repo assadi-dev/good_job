@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block head %}
+	<!-- Flickity CSS -->
+	<link rel="stylesheet" href="https://unpkg.com/flickity@2/dist/flickity.min.css">
+
+{% endblock %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="/css/carousel_style.css">
+	<link rel="stylesheet" href="/css/home.css">
+	<link rel="stylesheet" href="/css/offres.css">
+{% endblock %}
+
+
+{% block body %}
+
+	{% include "/extension/navBar.html.twig" %}
+
+	<div class="bg-dark p-5">
+		<div class="form_search mx-auto">
+			<form class="input-group w-auto my-auto d-none d-sm-flex">
+				<input autocomplete="off" type="search" class="form-control rounded" placeholder="Rechercher par poste" style="min-width: 125px;">
+				<span class="text-white input-group-text border-0 d-none d-lg-flex">
+					<i class="fas fa-search"></i>
+				</span>
+			</form>
+		</div>
+
+	</div>
+
+	<div class="container">
+		{% include "/home/carousel.html.twig" %}
+
+		<div id="offresRow" class="row col"></div>
+
+
+	</div>
+
+{% endblock %}
+
+{% block javascripts %}
+	<!-- Flickity JavaScript -->
+	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
+	<script src="/js/carousel.js"></script>
+
+
+{% endblock %}

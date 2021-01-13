@@ -1,0 +1,25 @@
+
+.carouselContain
+{
+    margin-top: 0;
+    background: rgba(255,255,255,0.08);
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.carousel-cell {
+    width: 35%;
+    height: 180px;
+    margin-right: 10px;
+    
+}
+
+.carousel-offre
+{
+    height: 100%;
+    font-size: 0.875rem !important;
+    
+}
+
+
+  

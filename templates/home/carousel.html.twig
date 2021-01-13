@@ -1,0 +1,42 @@
+<div class="carouselContain">
+	<div class="main-carousel">
+
+		{% for item in offresCarousel %}
+
+
+			<div class="carousel-cell">
+				<div class="card carousel-offre">
+
+					<div class="card-body">
+						<span>{{item.entreprise}}</span>
+						<h5 class="card-title">{{item.poste}}</h5>
+						<div class="d-flex justify-content-start">
+							<span class="cdi_icon">
+								<i class="fas fa-clipboard-list"></i>
+								{{item.contrat}}</span>
+							<span class="map_icon">
+								<i class="fas fa-map-marker-alt"></i>
+								{{item.ville}}</span>
+
+
+						</div>
+						<span>{{item.create_at|date("d/m/Y", "Europe/Paris")}}</span>
+						<div class="pt-3 d-flex justify-content-sm-evenly">
+
+							<a href="{{path('offre',{'id':item.id})}}" class="btn btn-primary btn-rounded my-auto">
+								voir l'offre
+							</a>
+
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+
+		{% endfor %}
+
+
+	</div>
+</div>

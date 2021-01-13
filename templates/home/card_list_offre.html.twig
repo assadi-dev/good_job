@@ -1,0 +1,49 @@
+<div class="col-sm">
+
+	{% for item in offres %}
+
+
+		<div class="card my-3 position-relative">
+			<div class="d-flex">
+
+				<a href="{{path('favorie_add',{'id':item.id})}}" class="linkAddFavori">
+					<span class="favoris_btn">
+						{% if app.user and item.isOffreAddByUser(candidats) %}
+							<i class="fas fa-heart addedFavorie"></i>
+						{% else %}
+							<i class="far fa-heart"></i>
+						{% endif %}
+					</span>
+				</a>
+
+				<div class="pictureEntreprise col-sm-2 text-center p-3">
+					<img src="https://mdbootstrap.com/img/logo/mdb192x192.jpg" class="img-fluid" alt="Logo Societé">
+				</div>
+				<div class="col-sm-7 pt-3 ">
+					<p class="mb-0">{{item.entreprise}}</p>
+					<h5>{{item.poste}}</h5>
+					<div class="d-flex justify-content-start">
+						<span class="cdi_icon">
+							<i class="fas fa-clipboard-list"></i>
+							{{item.contrat}}</span>
+						<span class="map_icon">
+							<i class="fas fa-map-marker-alt"></i>
+							{{item.ville}}</span>
+					</div>
+
+
+				</div>
+				<div class="col-sm-2 pt-3 d-flex justify-content-sm-evenly">
+
+					<a href="{{path('offre',{'id':item.id})}}" class="btn btn-primary btn-rounded my-auto">
+						voir l'offre
+					</a>
+
+				</div>
+			</div>
+
+		</div>
+
+	{% endfor %}
+
+</div>
