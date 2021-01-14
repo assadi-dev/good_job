@@ -19,7 +19,8 @@
 		<div class="row col">
 			<div class="my-3 text-center">
 				<h1>Mon Espace Candidat</h1>
-				<p>John Wick</p>
+				<p>{{ candidats.email }}</p>
+
 			</div>
 			<div
 				class="col-sm-8 mx-auto">
@@ -32,7 +33,8 @@
 						<a class="nav-link" id="ex1-tab-2" data-mdb-toggle="tab" href="#ex1-tabs-2" role="tab" aria-controls="ex1-tabs-2" aria-selected="false">Mes Favories</a>
 					</li>
 					<li class="nav-item" role="presentation">
-						<a class="nav-link" id="ex1-tab-3" data-mdb-toggle="tab" href="#ex1-tabs-3" role="tab" aria-controls="ex1-tabs-3" aria-selected="false">Mon Profile</a>
+						<a class="nav-link" id="ex1-tab-3" data-mdb-toggle="tab" href="#ex1-tabs-3" role="tab" aria-controls="ex1-tabs-3" aria-selected="false">Mes Documents
+						</a>
 					</li>
 				</ul>
 				<!-- Tabs navs -->
@@ -41,12 +43,12 @@
 				<div class="tab-content" id="ex1-content">
 					<div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">
 						<div class=" mx-auto">
-							<table class="table table-hover">
+							<table class="table table-hover  text-center">
 
 								<caption>
 									Listes des candidatures
 								</caption>
-								<thead class="table-light text-center">
+								<thead class="table-light">
 									<tr>
 										<th scope="col">ID Offre</th>
 										<th scope="col">Offres</th>
@@ -57,62 +59,90 @@
 								</thead>
 								<tbody>
 									{% for item in candidatures %}
-										<tr>
-											<th scope="row">{{item.idOffre}}</th>
-											<td>{{item.offre}}</td>
-											<td>{{item.disponible}}</td>
-											<td>
-												{% if item.reponse == "candidature en cours" %}
 
-													{% set color = "fw-bold text-warning" %}
+										<th scope="row">{{item.idOffre}}</th>
 
-												{% elseif item.reponse == "Accépté" %}
+										<td>{{item.offre}}</td>
+										<td>{{item.disponible}}</td>
+										<td>
+											{% if item.reponse == "candidature en cours" %}
 
-													{% set color = "fw-bold text-success" %}
+												{% set color = "fw-bold text-warning" %}
 
-												{% else %}
+											{% elseif item.reponse == "Accépté" %}
 
-													{% set color = "fw-bold text-danger" %}
+												{% set color = "fw-bold text-success" %}
 
-												{% endif %}
-												<span class="{{color}}">{{item.reponse}}</span>
+											{% else %}
 
+												{% set color = "fw-bold text-danger" %}
 
-											</td>
-											<td class="p-3 text-center">
-												<a class="btn btn-primary btn-rounded my-auto" href="{{path('offre',{'id':item.idOffre})}}">voir l'offre</a>
-											</td>
-										</tr>
-									{% endfor %}
-								</tbody>
-							</table>
-						</div>
+											{% endif %}
+											<span class="{{color}}">{{item.reponse}}</span>
 
 
+										</td>
+										<td class="p-3 text-center">
+											<a class="btn btn-primary btn-rounded my-auto" href="{{path('offre',{'id':item.idOffre})}}">voir l'offre</a>
+										</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
 					</div>
-					<div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
-						{{ include ("home/card_list_offre.html.twig",{offres}) }}
-					</div>
-					<div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
-						<div class="card">
-							<div class="card-body">
-								<h5 class="card-title">Card title</h5>
+				</div>
+				<div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">{{ include ("home/card_list_offre.html.twig",{offres}) }}</div>
+				<div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
+					<div class="card p-1">
+						<div class="card-body " id="reactDocument">
+							<h5 class="card-title">Mes fichiers</h5>
+
+							<div class="my-2">
+
+								<button class="btn btn-success btn-rounded" for="file" data-mdb-toggle="modal" data-mdb-target="#uploadModal">
+									Ajouter un document
+								</button>
+
 								<p class="card-text">
-									Some quick example text to build on the card title and make up the bulk of the
-																																																																																																																																																																																																																																																			      card's content.
+									<div class="row col">
+
+										<table class="table text-center">
+											<thead>
+												<tr>
+													<th scope="col">nom</th>
+													<th scope="col">type</th>
+													<th scope="col">Action</th>
+												</tr>
+											</thead>
+											<tbody>
+
+												{% for upload in uploads %}
+													<tr>
+
+														<td>{{upload.name}}</td>
+														<td>{{upload.type}}</td>
+														<td class="p-3 d-flex justify-content-center">
+															<a href="{{asset('/uploads/' ~ upload.chemin)}}" class="text-primary me-3">afficher</a>
+															<a href="" class="text-danger">
+																supprimer
+															</a>
+														</td>
+													</tr>
+												{% endfor %}
+
+
+											</tbody>
+										</table>
+
+									</div>
+
 								</p>
-								<button type="button" class="btn btn-primary">Button</button>
+
 							</div>
 						</div>
 					</div>
-				</div>
-				<!-- Tabs content -->
-			</div>
-
-
+				</div><!-- Tabs content --></div>
 		</div>
-
 	</div>
-
-
+	{% include "candidat/modalUploadFile.html.twig" %}
 {% endblock %}

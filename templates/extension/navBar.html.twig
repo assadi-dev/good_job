@@ -6,7 +6,7 @@
 		<div
 			class="d-flex">
 			<!-- Brand -->
-			<a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="#">
+			<a class="navbar-brand me-2 mb-1 d-flex align-items-center" href="{{path('accueil')}}">
 				<img src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png" height="20" alt="" loading="lazy" style="margin-top: 2px;"/>
 			</a>
 
@@ -20,8 +20,10 @@
 			{% if app.user %}
 				<li class="nav-item me-3 me-lg-1 ">
 					<a class="nav-link d-sm-flex align-items-sm-center" href="#">
-						<img src="https://mdbootstrap.com/img/new/avatars/1.jpg" class="rounded-circle" height="22" alt="" loading="lazy"/>
-						<strong class="d-none d-sm-block ms-1">John</strong>
+						<img src="https://mdbootstrap.com/img/new/avatars/1.jpg" class="rounded-circle me-2" height="22" alt="" loading="lazy"/>
+						<strong class="d-none d-sm-block ms-1">
+							{{app.user.username}}
+						</strong>
 					</a>
 
 				</li>

@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CandidatureRepository;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -47,6 +49,16 @@ class Candidature
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $reponse;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Upload::class, mappedBy="candidature")
+     */
+    private $uploads;
+
+    public function __construct()
+    {
+        $this->uploads = new ArrayCollection();
+    }
 
 
 
@@ -127,6 +139,36 @@ class Candidature
     public function setReponse(?string $reponse): self
     {
         $this->reponse = $reponse;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Upload[]
+     */
+    public function getUploads(): Collection
+    {
+        return $this->uploads;
+    }
+
+    public function addUpload(Upload $upload): self
+    {
+        if (!$this->uploads->contains($upload)) {
+            $this->uploads[] = $upload;
+            $upload->setCandidature($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUpload(Upload $upload): self
+    {
+        if ($this->uploads->removeElement($upload)) {
+            // set the owning side to null (unless already changed)
+            if ($upload->getCandidature() === $this) {
+                $upload->setCandidature(null);
+            }
+        }
 
         return $this;
     }

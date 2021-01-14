@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="/css/carousel_style.css">
 	<link rel="stylesheet" href="/css/home.css">
 	<link rel="stylesheet" href="/css/offres.css">
+	{{ encore_entry_link_tags('offres') }}
 {% endblock %}
 
 
@@ -29,7 +30,10 @@
 	</div>
 
 	<div class="container">
-		{% include "/home/carousel.html.twig" %}
+
+		<div class="mt-3 row">
+			{% include "/home/carousel.html.twig" %}
+		</div>
 
 		<div id="offresRow" class="row col"></div>
 
@@ -39,9 +43,10 @@
 {% endblock %}
 
 {% block javascripts %}
+
 	<!-- Flickity JavaScript -->
 	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 	<script src="/js/carousel.js"></script>
-
+	{{ encore_entry_script_tags('offres') }}
 
 {% endblock %}

@@ -10,3 +10,6 @@ var flkty = new Flickity( carousel, {
   initialIndex: 2,
   pageDots: false
 });
+
+
+document.querySelector(".carouselContain").classList.add("show");
