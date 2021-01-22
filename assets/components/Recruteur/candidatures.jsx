@@ -4,6 +4,24 @@ import { host } from '../Api';
 
 
 const Candidatures = () => {
+
+
+    
+    const [candidatures, setCandidatures] = useState([]);
+
+    useEffect(() => {
+        let url = host + "/api/recruteur/candidatures";
+        const fetchData = async () => {
+            let result = await axios.get(url)
+            
+            let data = result.data
+            setCandidatures(data);
+        }
+        
+        fetchData();
+
+    }, [])
+
     return (
         <div className="container">
           <h2 className="card-title">Candidatures</h2>
@@ -24,7 +42,19 @@ const Candidatures = () => {
                         </tr>
                         </thead>
                         <tbody>
-                            <tr></tr>
+                            {
+                                candidatures.map((item, index) => (
+                                    <tr>
+                                        <td>{item.offre["id"]}</td>
+                                        <td>{item.candidat["id"]}</td>
+                                        <td>{item.name}</td>
+                                        <td>{item.reponse}</td>
+                                        <td><button className="btn btn-primary">Repondre</button></td>
+                                    </tr>
+                                ))
+                                
+                            }
+                            
                         </tbody>
                     </table>
             </div>

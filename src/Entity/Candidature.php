@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CandidatureRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -17,41 +18,49 @@ class Candidature
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"simpleCandidatures"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleCandidatures"})
      */
     private $name;
 
     /**
      * @ORM\ManyToOne(targetEntity=Offres::class, inversedBy="created_at")
+     * @Groups({"simpleCandidatures"})
      */
     private $offre;
 
     /**
      * @ORM\ManyToOne(targetEntity=Candidat::class, inversedBy="candidatures")
+     * @Groups({"simpleCandidatures"})
      */
     private $candidat;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"simpleCandidatures"})
      */
     private $documents;
 
     /**
      * @ORM\ManyToOne(targetEntity=Recruteur::class, inversedBy="candidatures")
+     * @Groups({"simpleCandidatures"})
      */
     private $recruteur;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"simpleCandidatures"})
      */
     private $reponse;
 
     /**
      * @ORM\OneToMany(targetEntity=Upload::class, mappedBy="candidature")
+     * @Groups({"simpleCandidatures"})
      */
     private $uploads;
 

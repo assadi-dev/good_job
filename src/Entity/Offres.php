@@ -18,13 +18,13 @@ class Offres
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"simpleOffres","offre_general"})
+     * @Groups({"simpleOffres","offre_general","simpleCandidatures"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     *@Groups({"simpleOffres","offre_general"})
+     *@Groups({"simpleOffres","offre_general","simpleCandidatures"})
      */
     private $name;
 
@@ -84,6 +84,7 @@ class Offres
 
     /**
      * @ORM\OneToMany(targetEntity=Candidature::class, mappedBy="offre")
+     * @Groups({"simpleOffres","offre_general"})
      * 
      */
     private $created_at;

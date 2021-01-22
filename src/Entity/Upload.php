@@ -15,7 +15,7 @@ class Upload
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"uploadSimple"})
+     * @Groups({"uploadSimple","simpleCandidatures"})
      */
     private $id;
 

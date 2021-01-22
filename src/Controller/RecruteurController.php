@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\Offres;
 use DateTimeInterface;
 use App\Entity\Recruteur;
+use App\Repository\CandidatureRepository;
 use App\Repository\OffresRepository;
 use App\Repository\RecruteurRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -209,5 +210,27 @@ class RecruteurController extends AbstractController
         $recruteur = $repo->findOneBy(["email" => $username]);
 
         return $recruteur;
+    }
+
+
+    /**
+     * Api afficher les candidatures creer par les candidats
+     * @Route("/api/recruteur/candidatures", name = "get_candidatures_recruteur", methods={"GET"})
+     */
+    public function get_candidatures(CandidatureRepository $candidaturesRepo, RecruteurRepository $recruteuRepo, SerializerInterface $serializer): Response
+    {
+        $recruteur = $this->idRecruteur($recruteuRepo);
+        $candidature = $candidaturesRepo->findBy(["recruteur" => $recruteur]);
+        $resultat = $serializer->serialize(
+            $candidature,
+            "json",
+            [
+                "groups" => ["simpleCandidatures"]
+            ]
+        );
+
+
+
+        return new JsonResponse($resultat, Response::HTTP_OK, [], true);
     }
 }
