@@ -159,7 +159,7 @@ class RecruteurController extends AbstractController
     /**
      * @Route("/api/recruteur/offres/create/", name = "create_offres_recruteur", methods={"POST"})
      */
-    public function create_offres(EntityManagerInterface $manager, Request $request, SerializerInterface $serializer, RecruteurRepository $recruteuRepo)
+    public function create_offres(EntityManagerInterface $manager, Request $request, SerializerInterface $serializer, RecruteurRepository $recruteuRepo): Response
     {
         $idRecruteur = $this->idRecruteur($recruteuRepo);
         $today = new DateTime("now");
@@ -185,6 +185,16 @@ class RecruteurController extends AbstractController
     }
 
 
+    /**
+     * @Route("/api/recruteur/offres/delete/{id}", name = "delete_offres_recruteur", methods={"DELETE"})
+     */
+    public function delete_offres(Offres $offres, EntityManagerInterface $manager, Request $request, SerializerInterface $serializer): Response
+    {
+        $manager->remove($offres);
+        $manager->flush();
+
+        return new JsonResponse("L'offre à été Supprimé ", Response::HTTP_OK, [], true);
+    }
 
 
     /**

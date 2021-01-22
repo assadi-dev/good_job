@@ -66,7 +66,7 @@ return(
 			</div>
 			<div className="col-sm-7 pt-3 ">
 				<p className="mb-0"></p>
-				<h5>{item.entreprise }</h5>
+				<h5>{item.poste }</h5>
 				<div className="d-flex justify-content-start">
 					<span className="cdi_icon">
 						<i className="fas fa-clipboard-list"></i>

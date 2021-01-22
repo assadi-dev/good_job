@@ -1,6 +1,9 @@
-import React from 'react'
+import React ,{useState,useEffect} from 'react';
+import axios from 'axios';
+import { host } from '../Api';
 
-const Offres = () => {
+
+const Candidatures = () => {
     return (
         <div className="container">
           <h2 className="card-title">Candidatures</h2>
@@ -13,11 +16,10 @@ const Offres = () => {
                     <table className="table text-center">
                     <thead>
                         <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Nom</th>
-                            <th scope="col">Poste</th>
-                            <th scope="col">Contrat</th>
-                            <th scope="col">validité</th>
+                            <th scope="col">Id Offres</th>
+                            <th scope="col">Id Candidat</th>
+                            <th scope="col">Candidature</th>
+                            <th scope="col">Reponse</th>
                             <th scope="col">Action</th>
                         </tr>
                         </thead>
@@ -33,4 +35,4 @@ const Offres = () => {
     )
 }
 
-export default Offres;
+export default Candidatures;

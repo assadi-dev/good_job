@@ -7,6 +7,7 @@ import "./styles_recruteur.css";
 import './actionForm';
 import { handleChangeContrat, handleChangeDisponible, handleChangeEntreprise, handleChangeNom, handleChangePoste, handleChangeSecteur, handleChangeVille } from './actionForm';
 import ModalAjouter from './modalAjouter';
+import DeleteModal from './deleteModal';
 
 const Offres = () => {
 
@@ -55,10 +56,14 @@ const Offres = () => {
         };
 
         fetchData();
+
         if (statut == true) {
-            setStatut(false);
-        }
+
+            setTimeout(() => {
+                setStatut(false);
+              }, 3000)
             
+        }
         
     }, [statut])
 
@@ -81,7 +86,7 @@ const Offres = () => {
      
         const url = host + "/api/recruteur/offres/edit/" + id;
 
-        let result = await axios.put(url, {
+       await axios.put(url, {
             name: data.name,
             entreprise : data.entreprise,
             poste : data.poste,
@@ -90,14 +95,24 @@ const Offres = () => {
             contrat:data.contrat,
             ville:data.ville
         })
+        .then(res => {
 
-        setStatut(true);
+            //console.log(res.data);
+            setStatut(true);
 
-        document.querySelector(".message").classList.add("update_Show");
+            document.querySelector(".message").classList.add("update_Show");
+           
+    
+        })
+
+    
 
         
     }
         
+
+
+
 
     
 
@@ -153,7 +168,15 @@ const Offres = () => {
                                                 }}
                                                 
                                             >Modifier</Link>
-                                            <a className="text-danger " target="_blank" href={url+"/api/recruteur/delete/"+offre.id}>Supprimer</a>
+                                            <Link className="text-danger"
+                                                onClick={(e) => {
+                                                    info_offre(e,offre.id)
+                                                }}
+                                                data-mdb-toggle="modal"
+                                                data-mdb-target="#deleteModal"
+
+
+                                            >Supprimer</Link>
                                         </td>
                                     </tr>
                                 ))
@@ -230,6 +253,7 @@ const Offres = () => {
             </div>
 
             <ModalAjouter />
+            <DeleteModal data={show_offre} />
                     
         </div>
     )

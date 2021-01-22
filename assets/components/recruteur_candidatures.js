@@ -1,14 +1,14 @@
 import React  from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Offres from './Recruteur/offres';
+import Candidatures from './Recruteur/candidatures';
 
 
 
 
 ReactDOM.render(
     <Router>
-        <Offres />
+        <Candidatures />
     </Router>,
     document.getElementById('candidatures_recruteur')
 );

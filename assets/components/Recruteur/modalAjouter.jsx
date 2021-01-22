@@ -18,15 +18,6 @@ ville:""
 });
 
 
-let formDefault = {
-name: "",
-entreprise : "",
-poste :"",
-secteur :"" ,
-disponible:"",
-contrat:"",
-ville:"",
-}
 const handleChangeAdd = event => {
 
 const target = event.target;
@@ -115,26 +106,26 @@ return (
                 <div>
 
 
-                    <input type="text" className="form-control" name="name" onChange={(event)=>handleChangeAdd(event)}
+                    <input type="text" className="form-control" name="name" onChange={(event)=>handleChangeAdd(event)} placeholder="Intitulé de l'offre"
                     />
 
                     <input type="text" className="form-control" name="entreprise"
-                        onChange={(event)=>handleChangeAdd(event)} />
+                        onChange={(event)=>handleChangeAdd(event)} placeholder="Entreprise" />
 
                     <input type="text" className="form-control" name="poste" onChange={(event)=>handleChangeAdd(event)}
-                    />
+                    placeholder="Poste" />
 
                     <input type="text" className="form-control" name="secteur"
-                        onChange={(event)=>handleChangeAdd(event)}/>
+                        onChange={(event)=>handleChangeAdd(event)} placeholder="Secteur d'activité" />
 
                     <input type="date" className="form-control" name="disponible"
-                        onChange={(event)=>handleChangeAdd(event)} />
+                        onChange={(event)=>handleChangeAdd(event)} placeholder="Date de disponibilité" />
 
                     <input type="text" className="form-control" name="contrat"
-                        onChange={(event)=>handleChangeAdd(event)} />
+                        onChange={(event)=>handleChangeAdd(event)} placeholder="Type de contrat" />
 
                     <input type="text" className="form-control" name="ville" onChange={(event)=>handleChangeAdd(event)}
-                    />
+                   placeholder="Ville" />
 
 
 
