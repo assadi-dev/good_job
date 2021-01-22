@@ -74,9 +74,15 @@ class Recruteur
      */
     private $connexion;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Offres::class, mappedBy="auteur")
+     */
+    private $offres;
+
     public function __construct()
     {
         $this->candidatures = new ArrayCollection();
+        $this->offres = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -219,6 +225,36 @@ class Recruteur
     public function setConnexion(?Connection $connexion): self
     {
         $this->connexion = $connexion;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Offres[]
+     */
+    public function getOffres(): Collection
+    {
+        return $this->offres;
+    }
+
+    public function addOffre(Offres $offre): self
+    {
+        if (!$this->offres->contains($offre)) {
+            $this->offres[] = $offre;
+            $offre->setAuteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOffre(Offres $offre): self
+    {
+        if ($this->offres->removeElement($offre)) {
+            // set the owning side to null (unless already changed)
+            if ($offre->getAuteur() === $this) {
+                $offre->setAuteur(null);
+            }
+        }
 
         return $this;
     }

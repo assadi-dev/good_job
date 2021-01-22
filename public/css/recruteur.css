@@ -1,0 +1,49 @@
+.sideBar
+{
+    background:#1e2a3a;
+    position:fixed;
+    width: 280px;
+    z-index: 99;
+    height: 100vh;
+    top:0;
+    left:0;
+    overflow-y: auto;
+    scrollbar-color: hsla(0,0%,100%,.2) #1e2a3a;
+    scrollbar-width: thin;
+    text-align: center;
+    transition: all 0.5s ease;
+    color: #fff;
+}
+
+.sidebarContent
+{
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 1rem 1.5rem;
+    
+    
+}
+
+.navigation
+{
+   margin-top: 10rem;
+   padding-left: 0;
+   text-align: left;
+   
+}
+
+.nav-link a {
+    color: #fff;
+}
+
+.wrapper
+{
+    margin-left: 280px;
+    padding:3rem;
+    height: 100vh;
+
+    
+
+}

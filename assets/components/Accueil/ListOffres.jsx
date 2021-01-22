@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import {host} from '../Api';
 
 
 const ListOffres = () => {
@@ -10,8 +11,13 @@ const [isFavori, seIsFavori] = useState(false);
 
 const [offres, setOffres] = useState([]);
 
-const url = "https://127.0.0.1:8000/api/offres";
+const url = host+"/api/offres";
 
+	const addFvorie = (e, id) =>
+	{
+		e.preventDefault();
+		seIsFavori(!isFavori);
+	}
 
 useEffect(() => {
 
@@ -20,7 +26,7 @@ const fetchData = async () => {
 let result = await axios.get(url)
 
 
-let cleanResult = result.data.data;
+let cleanResult = result.data;
 
 cleanResult.map(offre => {
 let newDate = dayjs(offre.create_at).format("DD-MM-YYYY");
@@ -48,7 +54,7 @@ return(
 	<div key={index} className="card my-3 position-relative">
 		<div className="d-flex">
 
-			<a href="" className="linkAddFavori">
+			<a href="" className="linkAddFavori" onClick={(e)=> addFvorie(e,item.id)}>
 				<span className="favoris_btn">
 
 					<i className={ isFavori==true ? "fas fa-heart addedFavorie" : "far fa-heart" }></i>

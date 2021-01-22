@@ -1,0 +1,34 @@
+#grow_loader
+{
+    height: 3rem;
+    width: 3rem;
+    margin:auto;
+}
+
+.loader_show
+{
+    display: block;
+    text-align: center;
+}
+
+.loader_off
+{
+    display: none;
+}
+
+.message,.message_add
+{
+    opacity:0;
+    transition: all 0.5s ease-in-out;
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+}
+
+.update_Show,.add_Show
+{
+    opacity:1;
+    font-weight: bold;
+}
+

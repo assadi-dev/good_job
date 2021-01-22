@@ -9,6 +9,8 @@ use Doctrine\Persistence\ObjectManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -40,7 +42,7 @@ class HomeController extends AbstractController
     /**
      * @Route("/api/offres", name = "listes_offres",methods={"GET"})
      */
-    public function getOffres(OffresRepository $offresRepoD): Response
+    public function getOffres(OffresRepository $offresRepoD, SerializerInterface $serializer): Response
     {
         $user = $this->getUser();
 
@@ -49,7 +51,18 @@ class HomeController extends AbstractController
             ->getQuery()
             ->getArrayResult();
 
-        return $this->json(["code" => 200, "message" => "ok", "data" => $offres], 200);
+        $resultats = $serializer->serialize(
+            $offres,
+            "json",
+            [
+                "groups" => ["offre_general"]
+            ]
+        );
+
+        return new JsonResponse($resultats, Response::HTTP_OK, [], true);
+
+
+        //return $this->json(["code" => 200, "message" => "ok", "data" => $resultats], 200);
     }
 
 

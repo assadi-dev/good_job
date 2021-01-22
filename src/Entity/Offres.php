@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OffresRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=OffresRepository::class)
@@ -17,63 +18,80 @@ class Offres
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"simpleOffres","offre_general"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *@Groups({"simpleOffres","offre_general"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
+     *@Groups({"simpleOffres","offre_general"})
      */
     private $entreprise;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleOffres","offre_general"})
      */
     private $poste;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleOffres","offre_general"})
      */
     private $secteur;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleOffres","offre_general"})
      */
     private $ville;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleOffres","offre_general"})
      */
     private $contrat;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleOffres","offre_general"})
      */
     private $disponible;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"simpleOffres","offre_general"})
      */
     private $create_at;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleOffres","offre_general"})
      */
     private $logo;
 
     /**
      * @ORM\OneToMany(targetEntity=Favoris::class, mappedBy="offre", orphanRemoval=true)
+     * @Groups({"offre_general"})
      */
     private $favoris;
 
     /**
      * @ORM\OneToMany(targetEntity=Candidature::class, mappedBy="offre")
+     * 
      */
     private $created_at;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Recruteur::class, inversedBy="offres")
+     */
+    private $auteur;
 
     public function __construct()
     {
@@ -268,5 +286,17 @@ class Offres
         }
 
         return false;
+    }
+
+    public function getAuteur(): ?Recruteur
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?Recruteur $auteur): self
+    {
+        $this->auteur = $auteur;
+
+        return $this;
     }
 }

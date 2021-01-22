@@ -6,16 +6,18 @@ use App\Entity\Upload;
 use App\Entity\Candidat;
 use App\Form\UploadFileType;
 use App\Repository\OffresRepository;
+use App\Repository\UploadRepository;
 use App\Repository\FavorisRepository;
 use App\Repository\CandidatRepository;
 use App\Repository\RecruteurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\CandidatureRepository;
-use App\Repository\UploadRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
@@ -148,6 +150,8 @@ class CandidatController extends AbstractController
             $files = $form->get("fichiers")->getData();
 
 
+
+
             foreach ($files as $file) {
                 $filename = md5(uniqid()) . "." . $file->guessExtension();
                 $filenameOriginal = $file->getClientOriginalName();
@@ -195,7 +199,7 @@ class CandidatController extends AbstractController
      * @
      */
 
-    private function filesCandidat($uploadRepo, $candidat)
+    public function filesCandidat($uploadRepo, $candidat)
     {
 
 
@@ -229,6 +233,98 @@ class CandidatController extends AbstractController
         $candidat = $repo->findOneBy(["email" => $username]);
 
         return $candidat;
+    }
+
+    /**
+     * action supprimmer un fichier
+     * @Route("/api/upload/{id}" , name="delete_file",methods={"DELETE"})
+     */
+    public function delete_file(Upload $upload, Request $request, EntityManagerInterface $manager)
+    {
+        $data = json_decode($request->getContent());
+
+
+
+        $manager->remove($upload);
+        $manager->flush();
+        $nom = $upload->getChemin();
+        $path = $this->getParameter('upload_directory') . "/" . $nom;
+        unlink($path);
+        return $this->json(["success" => 1, "message" => "le fichier " . $upload->getName() . " à été supprimé"], 200);
+    }
+
+    /**
+     * api upload fichier
+     * @Route("/api/upload/", name = "add_file",methods={"POST"})
+     */
+
+    public function add_file(Request $request, SerializerInterface $serializer, EntityManagerInterface $manager, CandidatRepository $candidatRepo)
+    {
+        $data = json_decode($request->getContent(), true);
+
+
+
+        $idCandidat = $this->idCandidat($candidatRepo);
+        $rootPath = $this->getParameter('upload_directory');
+        $dirname = strtolower($idCandidat->getPrenom() . "_" . $idCandidat->getNom());
+        $dirnameFull  =  $rootPath . "\\" . $dirname;
+
+        // $this->create_dir($rootPath, $dirname);
+        $files = $data["data"];
+
+        //dump($files);
+
+
+
+        foreach ($files as $file) {
+            // dump($file["extension"]);
+            $filename = md5(uniqid()) . "." . $file["extension"];
+            $filenameOriginal = $file["nom"];
+            // $file->move($dirnameFull,  $filename);
+
+
+            $chemin = $dirname . "/" .  $filename;
+            $extension = $file["extension"];
+
+            $upload = new Upload();
+            $upload->setName($filename);
+            $upload->setType($extension);
+            $upload->setCandidat($idCandidat);
+            $upload->setChemin($chemin);
+            $manager->persist($upload);
+        }
+        //exit;
+
+
+
+        $manager->flush();
+
+        return $this->json(["success" => 1, "message" => "fichier uploadé"], 200);
+    }
+
+
+    /**
+     * Api récuperation des fichier uploadé par le candidat
+     * @Route("/api/upload" , name="get_uploads",methods={"GET"})
+     */
+    public function get_uploads(UploadRepository $uploadRepo, SerializerInterface $serializer, CandidatRepository $candidatRepo)
+    {
+        $candidat = $this->idCandidat($candidatRepo);
+        $uploadsFiles = $this->filesCandidat($uploadRepo, $candidat);
+
+        $resultat = $serializer->serialize(
+            $uploadsFiles,
+            "json",
+            [
+                "groups" => ["uploadSimple"]
+            ]
+
+
+        );
+
+
+
+        return new JsonResponse($resultat, Response::HTTP_OK, [], true);
     }
 
 

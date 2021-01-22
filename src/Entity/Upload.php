@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\UploadRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\UploadRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UploadRepository::class)
@@ -14,6 +15,7 @@ class Upload
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"uploadSimple"})
      */
     private $id;
 
@@ -30,16 +32,19 @@ class Upload
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"uploadSimple"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"uploadSimple"})
      */
     private $chemin;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"uploadSimple"})
      */
     private $type;
 

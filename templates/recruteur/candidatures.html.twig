@@ -1,0 +1,15 @@
+{% extends "/recruteur/index.html.twig" %}
+{% block stylesheets %}
+	{{ encore_entry_link_tags('candidatures_recruteur') }}
+
+{% endblock %}
+
+{% block body %}
+	<h1>Candidatures</h1>
+	<div id="candidatures_recruteur"></div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ encore_entry_script_tags('candidatures_recruteur') }}
+
+{% endblock %}

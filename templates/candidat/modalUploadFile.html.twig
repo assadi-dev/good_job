@@ -6,14 +6,14 @@
 				<h5 class="modal-title" id="exampleModalLabel">Ajouter Fichiers</h5>
 				<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body text-center">
 				{{ form_start(form, { attr: { 'accept-charset' : 'utf-8' }}) }}
-				<div class="form-group">
+				<div class="form-group mt-2">
 
-					{{ form_widget(form.fichiers) }}
+					{{ form_widget(form.fichiers,{ 'attr': {'class': 'form-control'}})  }}
 
 				</div>
-				<div class="form-group">
+				<div class="form-group mt-2">
 					<button type="submit" class="btn btn-primary btn-rounded">envoyer</button>
 				</div>
 				{{ form_rest(form) }}
