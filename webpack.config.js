@@ -22,7 +22,7 @@ Encore
      */
     //.addEntry('app', './assets/app.js')
     .addEntry('offres', './assets/components/offres.js')
-    .addEntry('uploads', './assets/components/uploadsSection.js')
+    .addEntry('infoCandidat', './assets/components/infoCandidatSection.js')
     .addEntry('offres_recruteur', './assets/components/recruteur.js')
     .addEntry('candidatures_recruteur', './assets/components/recruteur_candidatures.js')
     .addEntry('listFavories','./assets/components/listFavories.js')

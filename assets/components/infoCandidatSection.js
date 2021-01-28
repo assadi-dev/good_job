@@ -1,13 +1,13 @@
 import React  from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Uploads from './Espace/Uploads';
+import DataCandidat from './Espace/dataCandidat';
 
 
 ReactDOM.render(
     <Router>
-        <Uploads />
+       <DataCandidat />
         
     </Router>,
-    document.getElementById('reactDocument')
+    document.getElementById('reactDataCandidat')
 );

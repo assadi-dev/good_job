@@ -36,6 +36,7 @@ class Candidat
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleCandidatures"})
      */
     private $birth;
 
@@ -53,11 +54,13 @@ class Candidat
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"simpleCandidatures"})
      */
     private $created_at;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     *  @Groups({"simpleCandidatures"})
      */
     private $avatar;
 
@@ -68,6 +71,7 @@ class Candidat
 
     /**
      * @ORM\OneToMany(targetEntity=Favoris::class, mappedBy="candidat", orphanRemoval=true)
+     *
      */
     private $favoris;
 
