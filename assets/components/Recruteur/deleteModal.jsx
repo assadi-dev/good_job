@@ -28,7 +28,7 @@ const DeleteModal = ({ data }) => {
         <div
         class="modal fade"
         id="deleteModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
@@ -44,7 +44,7 @@ const DeleteModal = ({ data }) => {
               ></button>
             </div>
             <div class="modal-body p-3">
-                        <p>Voulez-supprimer { data.name}</p>  
+                        <p>Voulez-vous supprimer { data.name}</p>  
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-mdb-dismiss="modal">

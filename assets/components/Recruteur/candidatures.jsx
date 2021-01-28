@@ -1,6 +1,8 @@
-import React ,{useState,useEffect} from 'react';
+import React ,{useState,useEffect,useRef} from 'react';
 import axios from 'axios';
 import { host } from '../Api';
+import ReponseModal from './repModal';
+import "./styles_recruteur.css";
 
 
 const Candidatures = () => {
@@ -8,6 +10,8 @@ const Candidatures = () => {
 
     
     const [candidatures, setCandidatures] = useState([]);
+    const [showCandidature, setShowCandidature] = useState([]);
+    const reponseText = useRef();
 
     useEffect(() => {
         let url = host + "/api/recruteur/candidatures";
@@ -16,11 +20,50 @@ const Candidatures = () => {
             
             let data = result.data
             setCandidatures(data);
+
+            document.querySelectorAll(".reponseText").forEach(element => {
+                if (element.textContent == "Accépté") {
+                    element.classList.add("text-success")
+                }
+                else if (element.textContent == "Candidature en cours") {
+                    element.classList.add("text-warning")
+                }
+                else {
+                    element.classList.add("text-danger")
+                }
+            });
+
+
+
         }
         
         fetchData();
 
-    }, [])
+    }, []);
+
+    const getCandidature = async () => {
+        
+       // let url = host + "/api/recruteur/candidatures/" + id;
+    }
+
+    const getCandidatureById = (e,id) => {
+        
+       let data = candidatures.filter((v) => {
+            
+           return v.id == id;
+
+
+           
+        })
+
+        setShowCandidature(data);
+    }
+    
+
+ 
+
+
+
 
     return (
         <div className="container">
@@ -34,7 +77,7 @@ const Candidatures = () => {
                     <table className="table text-center">
                     <thead>
                         <tr>
-                            <th scope="col">Id Offres</th>
+                            <th scope="col">Offres</th>
                             <th scope="col">Id Candidat</th>
                             <th scope="col">Candidature</th>
                             <th scope="col">Reponse</th>
@@ -44,12 +87,17 @@ const Candidatures = () => {
                         <tbody>
                             {
                                 candidatures.map((item, index) => (
-                                    <tr>
-                                        <td>{item.offre["id"]}</td>
+                                    <tr key={index}>
+                                        <td>{item.offre["name"]}</td>
                                         <td>{item.candidat["id"]}</td>
                                         <td>{item.name}</td>
-                                        <td>{item.reponse}</td>
-                                        <td><button className="btn btn-primary">Repondre</button></td>
+                                        <td  className="reponseText font-weight-bold" >{item.reponse}</td>
+                                        <td>
+                                            <button
+                                                className="btn btn-primary"
+                                                data-mdb-toggle="modal"
+                                                data-mdb-target="#repModal" onClick={(e)=>getCandidatureById(e,item.id)} >Repondre</button>
+                                        </td>
                                     </tr>
                                 ))
                                 
@@ -60,6 +108,8 @@ const Candidatures = () => {
             </div>
                 
             </div>
+
+            <ReponseModal data = {showCandidature} />
 
         </div>
     )

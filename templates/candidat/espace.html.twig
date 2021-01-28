@@ -7,6 +7,7 @@
 	<link rel="stylesheet" href="/css/home.css">
 	<link rel="stylesheet" href="/css/offres.css">
 	{{ encore_entry_link_tags("uploads") }}
+	{{encore_entry_link_tags("listFavories")}}
 {% endblock %}
 
 {% block body %}
@@ -66,7 +67,7 @@
 										<td>{{item.offre}}</td>
 										<td>{{item.disponible}}</td>
 										<td>
-											{% if item.reponse == "candidature en cours" %}
+											{% if item.reponse == "Candidature en cours" %}
 
 												{% set color = "fw-bold text-warning" %}
 
@@ -92,7 +93,10 @@
 						</table>
 					</div>
 				</div>
-				<div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">{{ include ("home/card_list_offre.html.twig",{offres}) }}</div>
+				<div class="tab-pane fade" id="ex1-tabs-2" role="tabpanel" aria-labelledby="ex1-tab-2">
+					<div id="listFavories" class="col-sm"></div>
+
+				</div>
 				<div class="tab-pane fade" id="ex1-tabs-3" role="tabpanel" aria-labelledby="ex1-tab-3">
 					<div class="card p-1">
 						<div class="card-body " id="reactDocument"></div>
@@ -106,6 +110,7 @@
 {% endblock %}
 {% block javascripts %}
 	{{ encore_entry_script_tags("uploads") }}
+	{{ encore_entry_script_tags("listFavories")}}
 
 
 {% endblock %}

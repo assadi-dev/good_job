@@ -18,17 +18,19 @@ class Candidat
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"simpleCandidatures"})
+     * @Groups({"simpleCandidatures","simpleFavoris"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleCandidatures"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleCandidatures"})
      */
     private $prenom;
 
@@ -39,11 +41,13 @@ class Candidat
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleCandidatures"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleCandidatures"})
      */
     private $phone;
 

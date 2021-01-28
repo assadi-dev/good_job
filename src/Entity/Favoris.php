@@ -2,8 +2,9 @@
 
 namespace App\Entity;
 
-use App\Repository\FavorisRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\FavorisRepository;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=FavorisRepository::class)
@@ -14,18 +15,22 @@ class Favoris
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups({"simpleFavoris"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity=Offres::class, inversedBy="favoris")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"simpleFavoris"})
      */
     private $offre;
 
     /**
      * @ORM\ManyToOne(targetEntity=Candidat::class, inversedBy="favoris")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"simpleFavoris"})
+     * 
      */
     private $candidat;
 

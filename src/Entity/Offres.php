@@ -18,61 +18,61 @@ class Offres
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"simpleOffres","offre_general","simpleCandidatures"})
+     * @Groups({"simpleOffres","offre_general","simpleCandidatures","simpleFavoris"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     *@Groups({"simpleOffres","offre_general","simpleCandidatures"})
+     *@Groups({"simpleOffres","offre_general","simpleCandidatures","simpleFavoris"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
-     *@Groups({"simpleOffres","offre_general"})
+     *@Groups({"simpleOffres","offre_general","simpleFavoris"})
      */
     private $entreprise;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"simpleOffres","offre_general"})
+     * @Groups({"simpleOffres","offre_general","simpleCandidatures","simpleFavoris"})
      */
     private $poste;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"simpleOffres","offre_general"})
+     * @Groups({"simpleOffres","offre_general","simpleFavoris"})
      */
     private $secteur;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"simpleOffres","offre_general"})
+     * @Groups({"simpleOffres","offre_general","simpleFavoris"})
      */
     private $ville;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"simpleOffres","offre_general"})
+     * @Groups({"simpleOffres","offre_general","simpleFavoris"})
      */
     private $contrat;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"simpleOffres","offre_general"})
+     * @Groups({"simpleOffres","offre_general","simpleCandidatures","simpleFavoris"})
      */
     private $disponible;
 
     /**
      * @ORM\Column(type="datetime")
-     * @Groups({"simpleOffres","offre_general"})
+     * @Groups({"simpleOffres","offre_general","simpleFavoris"})
      */
     private $create_at;
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Groups({"simpleOffres","offre_general"})
+     * @Groups({"simpleOffres","offre_general","simpleFavoris"})
      */
     private $logo;
 
@@ -84,7 +84,7 @@ class Offres
 
     /**
      * @ORM\OneToMany(targetEntity=Candidature::class, mappedBy="offre")
-     * @Groups({"simpleOffres","offre_general"})
+     * @Groups({"simpleOffres","offre_general","simpleFavoris"})
      * 
      */
     private $created_at;

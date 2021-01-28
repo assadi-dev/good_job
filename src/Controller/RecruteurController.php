@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Candidature;
 use DateTime;
 use App\Entity\Offres;
 use DateTimeInterface;
@@ -229,8 +230,34 @@ class RecruteurController extends AbstractController
             ]
         );
 
-
-
         return new JsonResponse($resultat, Response::HTTP_OK, [], true);
+    }
+
+
+
+
+    /**
+     * Api afficher les candidatures creer par les candidats
+     * @Route("/api/recruteur/candidatures/edit/{id}", name = "edit_candidatures_recruteur", methods={"PUT"})
+     */
+    public function edit_candidatures(Candidature $candidature, SerializerInterface $serializer, EntityManagerInterface $manager, Request $request): Response
+    {
+
+        $data = $request->getContent();
+        $resultat = $serializer->deserialize(
+            $data,
+            Candidature::class,
+            'json',
+            ['object_to_populate' => $candidature],
+            $candidature,
+
+        );
+
+
+        $manager->persist($resultat);
+        $manager->flush();
+
+
+        return new JsonResponse("La candidature à été mise à jour", Response::HTTP_OK, [], true);
     }
 }

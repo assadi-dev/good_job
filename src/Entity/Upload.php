@@ -38,7 +38,7 @@ class Upload
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"uploadSimple"})
+     * @Groups({"uploadSimple","simpleCandidatures"})
      */
     private $chemin;
 

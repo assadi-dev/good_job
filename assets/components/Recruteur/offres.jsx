@@ -1,7 +1,7 @@
 import React, { useState, useEffect,useRef } from 'react';
 import axios from 'axios';
 import dayjs from 'dayjs';
-import { Link,useLocation } from 'react-router-dom';
+import {Link , useLocation } from 'react-router-dom';
 import { host } from '../Api';
 import "./styles_recruteur.css";
 import './actionForm';
@@ -101,6 +101,13 @@ const Offres = () => {
             setStatut(true);
 
             document.querySelector(".message").classList.add("update_Show");
+
+            let modalEl = document.querySelector("#staticBackdropUpdate");
+
+            let modal = new mdb.Modal(modalEl);
+
+
+            modal.hide();
            
     
         })
@@ -168,7 +175,9 @@ const Offres = () => {
                                                 }}
                                                 
                                             >Modifier</Link>
-                                            <Link className="text-danger"
+                                            <Link
+                                                to=""
+                                                className="text-danger"
                                                 onClick={(e) => {
                                                     info_offre(e,offre.id)
                                                 }}
@@ -245,7 +254,7 @@ const Offres = () => {
                         <button type="button" className="btn btn-warning" data-mdb-dismiss="modal" onClick={(e)=>{ setIsloading(false),document.querySelector(".message").classList.remove("update_Show")}}>
                         Fermer
                         </button>
-                                <button type="button" className="btn btn-primary" onClick={(e) => { handleUpdate(e,formValue.id,show_offre)}} >Enregistrer</button>
+                                <button type="button" className="btn btn-primary" data-mdb-dismiss="modal" onClick={(e) => { handleUpdate(e,formValue.id,show_offre)}} >Enregistrer</button>
                     </div>
                     </div>
                    

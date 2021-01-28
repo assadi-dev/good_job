@@ -24,7 +24,8 @@ Encore
     .addEntry('offres', './assets/components/offres.js')
     .addEntry('uploads', './assets/components/uploadsSection.js')
     .addEntry('offres_recruteur', './assets/components/recruteur.js')
-    .addEntry('candidatures_recruteur','./assets/components/recruteur_candidatures.js')
+    .addEntry('candidatures_recruteur', './assets/components/recruteur_candidatures.js')
+    .addEntry('listFavories','./assets/components/listFavories.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
