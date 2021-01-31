@@ -15,9 +15,9 @@
 	<!-- Jumbotron -->
 	<div class="p-5 text-center bg-light">
 		<h5 class="mb-1">{{offre.entreprise}}</h5>
-		<h1 class="mb-3">{{offre.poste}}</h1>
+		<h1 class="mb-3">{{offre.name}}</h1>
 
-		<div class="d-flex justify-content-sm-center my-3">
+		<div class="d-flex justify-content-center my-3">
 			<span class="cdi_icon_offre">
 				<i class="fas fa-clipboard-list"></i>
 				{{offre.contrat}}</span>
@@ -25,9 +25,57 @@
 				<i class="fas fa-map-marker-alt"></i>
 				{{offre.ville}}</span>
 		</div>
-		<a class="btn btn-primary" href="" role="button">Postuler</a>
+		<button class="btn btn-primary" data-mdb-toggle="modal" data-mdb-target="#uploadFilesModal" role="button">Postuler</button>
 	</div>
 	<!-- Jumbotron -->
 
+	<div class="container">
+
+		<div class="text-center my-3">
+			<h3>Description de l'offre</h3>
+		</div>
+		<div class=" mb-3 row justify-md-content-between">
+			<div class="col-md-4">
+				<p>
+					<span class="font-weight-bold">Secteur :</span>
+					{{offre.secteur}}
+				</p>
+				<p>
+					<span class="cdi_icon_offre">
+						<span class="font-weight-bold">Poste :</span>
+						{{offre.poste}}
+					</span>
+				</p>
+
+				<p>
+					<span class="cdi_icon_offre">
+						<i class="fas fa-clipboard-list"></i>
+						{{offre.contrat}}
+					</span>
+				</p>
+
+				<p>
+					<span class="cdi_icon_offre">
+						<i class="fas fa-map-marker-alt"></i>
+						{{offre.ville}}
+					</span>
+				</p>
+				<p>
+					<span class="font-weight-bold">Disponible à partir du :</span>
+					{{offre.disponible|date("d-m-Y")}}
+				</p>
+
+			</div>
+			<div class=" col-md-8">
+				<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore tempore nihil sed delectus nostrum! Officia ipsa assumenda doloribus. Deserunt vero sed excepturi eos velit cum asperiores corrupti provident ducimus fugiat, architecto rem eaque sapiente nisi quaerat nobis at qui dolorum, blanditiis consequatur ratione? Beatae repellat earum asperiores? Veritatis, excepturi autem?</p>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint sit maiores doloremque error, tempore, corrupti ipsa doloribus id necessitatibus nulla harum voluptatem atque at? Fugit, fuga aspernatur quam, esse quidem eius explicabo dolor quae eum nihil beatae? Impedit reprehenderit aperiam eveniet ratione dignissimos sit sed hic architecto perferendis fuga, adipisci tempore facere? Ad, ducimus pariatur voluptate cupiditate nemo animi tempora reprehenderit sapiente eveniet et eum corporis modi! Magnam sint nobis blanditiis illum explicabo. Error suscipit modi praesentium, quod eligendi maxime perferendis minus dolor placeat cum deserunt minima veritatis quas aperiam accusamus. Minus quis nihil cum aperiam labore est, eos numquam.</p>
+			</div>
+		</div>
+
+		{% include "home/modalPostuler.html.twig" %}
+	</div>
 
 {% endblock %}
+
+
+{% block javascripts %}{% endblock %}

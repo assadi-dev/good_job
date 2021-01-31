@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Favoris;
 use App\Repository\FavorisRepository;
 use App\Repository\CandidatRepository;
+use App\Repository\OffresRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,6 +25,7 @@ class FavoriesController extends AbstractController
     {
         $candidat = $this->idCandidat($candidatRepo);
 
+
         $favoris = $favoriRepo->findBy(["candidat" => $candidat]);
 
 
@@ -42,13 +44,20 @@ class FavoriesController extends AbstractController
     /**
      * @Route("/api/favories/", name="add_favories", methods={"POST"})
      */
-    public function add_favories(FavorisRepository $favoriRepo, CandidatRepository $candidatRepo, SerializerInterface $serializer, Request $request, EntityManagerInterface $manager): Response
+    public function add_favories(OffresRepository $repoOffre, CandidatRepository $candidatRepo, SerializerInterface $serializer, Request $request, EntityManagerInterface $manager): Response
     {
         $candidat = $this->idCandidat($candidatRepo);
 
-        $data = json_decode($request->getContent(), true);
+        $data = $request->getContent();
+        $offre = json_decode($data, true);
+
+        $offreId = $repoOffre->findOneBy(["id" => $offre["offre_id"]]);
+
+
 
         $favories = $serializer->deserialize($data, Favoris::class, "json");
+
+        $favories->setOffre($offreId);
         $favories->setCandidat($candidat);
 
         $manager->persist($favories);
@@ -57,7 +66,7 @@ class FavoriesController extends AbstractController
 
 
         return new JsonResponse(
-            "L'offre " . $favories->getName() . " à été ajouté en dans la liste des favories",
+            "L'offre à été ajouté  dans la liste des favories",
             Response::HTTP_CREATED,
             [],
             true
@@ -88,6 +97,38 @@ class FavoriesController extends AbstractController
     }
 
 
+    /**
+     * @Route("/api/favories/delete/", name="delete_favoriesHome", methods={"POST"})
+     * 
+     */
+    public function delete_favoriesHome(OffresRepository $repoOffre, CandidatRepository $candidatRepo, FavorisRepository $favorisRepo, Request $request, EntityManagerInterface $manager): Response
+    {
+
+        $data = $request->getContent();
+
+        $data = json_decode($data, true);
+
+        $offreID = $data["offre_id"];
+        $offre = $repoOffre->findOneBy(["id" => $offreID]);
+
+        $candidat = $this->idCandidat($candidatRepo);
+
+        $favoris = $favorisRepo->findOneBy(["offre" => $offre, "candidat" => $candidat]);
+
+
+
+        $manager->remove($favoris);
+        $manager->flush();
+
+
+
+        return new JsonResponse(
+            "L'offre " . $favoris->getOffre()->getName() . " à été retiré en de la liste des favories",
+            Response::HTTP_OK,
+            [],
+            true
+        );
+    }
 
 
 
@@ -101,10 +142,13 @@ class FavoriesController extends AbstractController
     public function idCandidat($repo)
     {
         $user = $this->getUser();
-        $username = $user->getUsername();
 
-        $candidat = $repo->findOneBy(["email" => $username]);
+        if ($user) {
+            $username = $user->getUsername();
 
-        return $candidat;
+            $candidat = $repo->findOneBy(["email" => $username]);
+
+            return $candidat;
+        }
     }
 }

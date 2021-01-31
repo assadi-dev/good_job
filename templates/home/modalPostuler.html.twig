@@ -1,0 +1,53 @@
+<!-- Modal -->
+<div class="modal fade" id="uploadFilesModal" data-mdb-backdrop="static" data-mdb-keyboard="false" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">{{offre.name}}</h5>
+				<button type="button" class="btn-close" data-mdb-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+
+				{{ form_start(form, { attr: { 'accept-charset' : 'utf-8' }}) }}
+				<p>
+					<strong>ID de l'offre:
+					</strong>
+					{{offre.id}}
+				</p>
+
+				<p>
+					<strong>Poste:
+					</strong>
+					{{offre.poste}}
+				</p>
+
+
+				<div class="form-group mt-2">
+
+					{{ form_widget(form.fichiers,{ 'attr': {'class': 'form-control',"accept":"application/pdf"}})  }}
+
+				</div>
+
+				<div class="form-group mt-2">
+					{% if offre.auteur != null %}
+						<input type="hidden" name="auteur" class="form-control my-3" value="{{offre.auteur.id}} ">
+
+
+					{% endif %}
+
+					<input type="hidden" name="offre" class="form-control my-3" value="{{offre.id}} ">
+				</div>
+
+
+				<div class="form-group mt-2">
+					<button type="submit" class="btn btn-primary btn-rounded">envoyer candidature</button>
+				</div>
+
+				{{ form_rest(form) }}
+				{{ form_end(form) }}
+
+
+			</div>
+		</div>
+	</div>
+</div>

@@ -58,6 +58,7 @@ return (
             <div className="modal-body">
                 <form action="">
                         <Dropzone
+                            
                             ref={dropZoneContent}
                             submitButtonContent="Envoyer"
                             inputWithFilesContent="Ajouter fichier "

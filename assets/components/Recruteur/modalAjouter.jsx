@@ -22,8 +22,8 @@ const handleChangeAdd = event => {
 
 const target = event.target;
 const value = target.value;
-const name = target.name;
-console.log(name)
+    const name = target.name;
+    
 setOffresData({
 ...offresData,
 [name]: value,

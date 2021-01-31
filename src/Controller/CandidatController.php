@@ -124,102 +124,17 @@ class CandidatController extends AbstractController
 
 
 
-        /////Upload fichiers ////
-
-
-
-        $upload = new Upload();
-        $form = $this->createForm(UploadFileType::class, $upload);
-        $form->handleRequest($request);
-
-        $idCandidat = $this->idCandidat($candidatRepo);
-        $cheminUpload = $this->getParameter('upload_directory');
-        $dirname = strtolower($idCandidat->getPrenom() . "_" . $idCandidat->getNom());
-
-        $dirnameFull  = $cheminUpload . "\\" . $dirname;
-
-
-
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-
-            $this->create_dir($cheminUpload, $dirname);
-
-
-            $files = $form->get("fichiers")->getData();
-
-
-
-
-            foreach ($files as $file) {
-                $filename = md5(uniqid()) . "." . $file->guessExtension();
-                $filenameOriginal = $file->getClientOriginalName();
-                $file->move($dirnameFull,  $filename);
-
-
-                $chemin = $dirname . "/" .  $filename;
-
-                $type = $file->getClientMimeType();
-                $extension = explode(".", $filename);
-                $extension = trim($extension[1]);
-
-                $upload = new Upload();
-                $upload->setName($filename);
-                $upload->setType($extension);
-                $upload->setCandidat($idCandidat);
-                $upload->setChemin($chemin);
-                $manager->persist($upload);
-            }
-            $manager->flush();
-
-            return $this->redirectToRoute('espace_candidat');
-        }
-
-
-        $uploadsFiles = $this->filesCandidat($uploadRepo, $idCandidat);
-
-
-
-
-
 
         return $this->render('candidat/espace.html.twig', [
             'candidatures' =>  $finalArray,
             'candidats' => $userCandidat,
             'offres' => $offresFavorisFinal,
-            'form' => $form->createView(),
-            'uploads' =>  $uploadsFiles,
+
         ]);
     }
-    /**
-     *Fonction qui récupere les fichiers uploadé par le candidat 
-     * @param var $upload Repo de l'uplooad
-     * @param var $candidat repod du candidat
-     * @
-     */
-
-    public function filesCandidat($uploadRepo, $candidat)
-    {
 
 
-        $upload = $uploadRepo->findBy(["candidat" => $candidat]);
 
-        return $upload;
-    }
-
-
-    /**
-     *fonction créer un dossier
-     * 
-     */
-    public function create_dir($cheminUpload, $dirname)
-    {
-
-        if (!file_exists($cheminUpload . '/')) {
-            mkdir($dirname, 0777, true);
-        }
-    }
 
     /**
      * fonction qui retourne l'Id du candidat 
@@ -235,97 +150,12 @@ class CandidatController extends AbstractController
         return $candidat;
     }
 
-    /**
-     * action supprimmer un fichier
-     * @Route("/api/upload/{id}" , name="delete_file",methods={"DELETE"})
-     */
-    public function delete_file(Upload $upload, Request $request, EntityManagerInterface $manager)
-    {
-        $data = json_decode($request->getContent());
 
 
 
-        $manager->remove($upload);
-        $manager->flush();
-        $nom = $upload->getChemin();
-        $path = $this->getParameter('upload_directory') . "/" . $nom;
-        unlink($path);
-        return $this->json(["success" => 1, "message" => "le fichier " . $upload->getName() . " à été supprimé"], 200);
-    }
-
-    /**
-     * api upload fichier
-     * @Route("/api/upload/", name = "add_file",methods={"POST"})
-     */
-
-    public function add_file(Request $request, SerializerInterface $serializer, EntityManagerInterface $manager, CandidatRepository $candidatRepo)
-    {
-        $data = json_decode($request->getContent(), true);
 
 
 
-        $idCandidat = $this->idCandidat($candidatRepo);
-        $rootPath = $this->getParameter('upload_directory');
-        $dirname = strtolower($idCandidat->getPrenom() . "_" . $idCandidat->getNom());
-        $dirnameFull  =  $rootPath . "\\" . $dirname;
-
-        // $this->create_dir($rootPath, $dirname);
-        $files = $data["data"];
-
-        //dump($files);
-
-
-
-        foreach ($files as $file) {
-            // dump($file["extension"]);
-            $filename = md5(uniqid()) . "." . $file["extension"];
-            $filenameOriginal = $file["nom"];
-            // $file->move($dirnameFull,  $filename);
-
-
-            $chemin = $dirname . "/" .  $filename;
-            $extension = $file["extension"];
-
-            $upload = new Upload();
-            $upload->setName($filename);
-            $upload->setType($extension);
-            $upload->setCandidat($idCandidat);
-            $upload->setChemin($chemin);
-            $manager->persist($upload);
-        }
-        //exit;
-
-
-
-        $manager->flush();
-
-        return $this->json(["success" => 1, "message" => "fichier uploadé"], 200);
-    }
-
-
-    /**
-     * Api récuperation des fichier uploadé par le candidat
-     * @Route("/api/upload" , name="get_uploads",methods={"GET"})
-     */
-    public function get_uploads(UploadRepository $uploadRepo, SerializerInterface $serializer, CandidatRepository $candidatRepo)
-    {
-        $candidat = $this->idCandidat($candidatRepo);
-        $uploadsFiles = $this->filesCandidat($uploadRepo, $candidat);
-
-        $resultat = $serializer->serialize(
-            $uploadsFiles,
-            "json",
-            [
-                "groups" => ["uploadSimple"]
-            ]
-
-
-        );
-
-
-
-        return new JsonResponse($resultat, Response::HTTP_OK, [], true);
-    }
 
 
     /**

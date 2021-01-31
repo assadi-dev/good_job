@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useRef } from 'react';
 import axios from 'axios';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import {host} from '../Api';
-import { element } from 'prop-types';
+
 
 
 const ListOffres = () => {
@@ -12,13 +12,48 @@ const ListOffres = () => {
 
 	const [offres, setOffres] = useState([]);
 	const [favories, setFavories] = useState([]);
+	const [action, setAction] = useState(false);
+	const favorie_btn= useRef()
 
 	const url = host + "/api/offres";
-	const urlFavori = host+"/api/favories";
+	const urlFavori = host + "/api/favories/";
+	
 
-	const addFvorie = (e, id) =>
+	const addFvorie = async (e, id,isFavorie) =>
 	{
-		e.preventDefault();
+		e.preventDefault();		
+		console.log(id);
+		
+		if (isFavorie == true)
+		{
+			await axios.post(urlFavori + "delete/", {
+				offre_id: id,
+				
+			})
+				.then(resp => {
+					console.log(resp.data)
+					setAction(true);
+					setTimeout(() => {
+						setAction(false);
+					},2500)
+			})
+		
+		} else {
+			await axios.post(urlFavori, {
+				offre_id: id,
+				
+			})
+				.then(resp => {
+					console.log(resp.data)
+					setAction(true);
+					setTimeout(() => {
+						setAction(false);
+					},2500)
+			})
+		}	
+		
+
+	
 	
 	}
 
@@ -59,8 +94,9 @@ return offre;
 				
 				
 			} 
+
 			
-			
+
 		})
 			
 		return offre
@@ -68,8 +104,10 @@ return offre;
 
 	})
 
-	
 	setOffres(cleanResult);
+
+	
+		
 	
 
 	
@@ -82,7 +120,7 @@ return offre;
 
 fetchData();
 
-}, [])
+}, [action])
 
 return(
 <div className="col-sm">
@@ -93,7 +131,7 @@ return(
 	<div key={index} className="card my-3 position-relative">
 		<div className="d-flex">
 
-			<a href="" className="linkAddFavori" onClick={(e)=> addFvorie(e,item.id)}>
+			<a href="" className="linkAddFavori" onClick={(e)=> addFvorie(e,item.id,item.isFavorie)}>
 				<span className="favoris_btn">
 					
 
@@ -106,7 +144,7 @@ return(
 			</div>
 			<div className="col-sm-7 pt-3 ">
 				<p className="mb-0"></p>
-				<h5>{item.poste }</h5>
+				<h5>{item.name }</h5>
 				<div className="d-flex justify-content-start">
 					<span className="cdi_icon">
 						<i className="fas fa-clipboard-list"></i>
