@@ -60,7 +60,6 @@ class CandidatController extends AbstractController
 
         /**
          * Retourne un array qui contiendra le infos necessaire pour afficher dans le tableaux des candidatures cotés client
-         * @var $finalArray
          * @return array
          */
 

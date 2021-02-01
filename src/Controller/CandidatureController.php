@@ -75,16 +75,6 @@ class CandidatureController extends AbstractController
 
             return $this->redirectToRoute('espace_candidat');
         }
-
-
-
-        /*return $this->render('home/modalPostuler.html.twig', [
-
-            'form' => $form->createView(),
-
-        ]);*/
-
-        //$uploadsFiles = $this->filesCandidat($uploadRepo, $idCandidat);
     }
 
     /**
@@ -101,6 +91,24 @@ class CandidatureController extends AbstractController
         return $candidat;
     }
 
+
+    /**
+     * @Route("/candidature/uploads",name="get_upload" , methods={"GET"})
+     */
+
+    public function get_uploadsCandidatures(UploadRepository $uploadRepo, SerializerInterface $serializer): Response
+    {
+        $uploads = $uploadRepo->findAll();
+        $resultat = $serializer->serialize(
+            $uploads,
+            "json",
+            [
+                "groups" => ["uploadSimple"]
+            ]
+        );
+
+        return new JsonResponse($resultat, Response::HTTP_OK, [], true);
+    }
 
 
 
@@ -121,6 +129,9 @@ class CandidatureController extends AbstractController
         unlink($path);
         return $this->json(["success" => 1, "message" => "le fichier " . $upload->getName() . " à été supprimé"], 200);
     }
+
+
+
 
 
 

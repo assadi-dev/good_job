@@ -18,7 +18,8 @@ class Candidature
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"simpleCandidatures"})
+     * @Groups({"simpleCandidatures","uploadSimple"})
+     * 
      */
     private $id;
 

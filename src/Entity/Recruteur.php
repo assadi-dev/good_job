@@ -18,42 +18,49 @@ class Recruteur
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
-     * @Groups({"simpleCandidatures"})
+     * @Groups({"simpleRecruteur","simpleCandidatures"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleRecruteur"})
      */
     private $nom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleRecruteur"})
      */
     private $prenom;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleRecruteur"})
      */
     private $birth;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleRecruteur"})
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleRecruteur"})
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"simpleRecruteur"})
      */
     private $entreprise;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"simpleRecruteur"})
      */
     private $avatar;
 
@@ -61,6 +68,7 @@ class Recruteur
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"simpleRecruteur"})
      */
     private $create_at;
 
@@ -73,6 +81,7 @@ class Recruteur
 
     /**
      * @ORM\OneToOne(targetEntity=Connection::class, cascade={"persist", "remove"})
+     * @Groups({"simpleRecruteur"})
      */
     private $connexion;
 

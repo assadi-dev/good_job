@@ -2,15 +2,17 @@
 
 namespace App\Controller;
 
-use App\Entity\Candidature;
 use DateTime;
 use App\Entity\Offres;
 use DateTimeInterface;
 use App\Entity\Recruteur;
-use App\Repository\CandidatureRepository;
+use App\Entity\Connection;
+use App\Entity\Candidature;
 use App\Repository\OffresRepository;
 use App\Repository\RecruteurRepository;
+use App\Repository\ConnectionRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\CandidatureRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -20,6 +22,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class RecruteurController extends AbstractController
 {
@@ -67,6 +70,14 @@ class RecruteurController extends AbstractController
         return $this->render('recruteur/offres.html.twig', [
             'controller_name' => 'RecruteurController',
         ]);
+    }
+
+    /**
+     * @Route("/espace/recruteur/profile", name = "info_recruteur")
+     */
+    public function show_recruteur(): Response
+    {
+        return $this->render('recruteur/info_recruteur.html.twig', []);
     }
 
 
@@ -259,5 +270,53 @@ class RecruteurController extends AbstractController
 
 
         return new JsonResponse("La candidature à été mise à jour", Response::HTTP_OK, [], true);
+    }
+
+
+    /**
+     * @Route("/api/recruteur/profile" , name="get_recruteur" , methods={"GET"})
+     */
+    public function get_recruteur(SerializerInterface $serializer, RecruteurRepository $recruteurRepo): Response
+    {
+        $recruteur = $this->idRecruteur($recruteurRepo);
+
+        $resultat = $serializer->serialize(
+            $recruteur,
+            "json",
+            [
+                "groups" => ["simpleRecruteur"]
+            ]
+        );
+
+        return new JsonResponse($resultat, Response::HTTP_OK, [], true);
+    }
+
+
+    /**
+     * Api afficher les candidatures creer par les candidats
+     * @Route("/api/recruteur/profile/{id}", name = "edit_recruteur", methods={"PUT"})
+     */
+    public function edit_recruteur(Recruteur $recruteur, ConnectionRepository $conectionRepo, SerializerInterface $serializer, EntityManagerInterface $manager, Request $request): Response
+    {
+
+        $data = $request->getContent();
+        $user = $this->getUser();
+        $resultat = $serializer->deserialize(
+            $data,
+            Recruteur::class,
+            'json',
+            ['object_to_populate' => $recruteur],
+            $recruteur,
+
+        );
+        $userConnect = $conectionRepo->findOneBy(['id' => $user]);
+        $recruteurEmail = $resultat->getEmail();
+        $userConnect->setUsername($recruteurEmail);
+
+        $manager->persist($resultat);
+        $manager->flush();
+
+
+        return new JsonResponse("La profile à été mise à jour", Response::HTTP_OK, [], true);
     }
 }

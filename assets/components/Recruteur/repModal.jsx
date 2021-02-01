@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React ,{useState,useEffect} from 'react';
+import React ,{useState,useEffect,useRef} from 'react';
 import { host } from '../Api';
 
 
@@ -8,12 +8,44 @@ import { host } from '../Api';
 
 const ReponseModal = ({ data }) => {
 
-const [reponse, setRepnse] = useState("Candidature en cours");
+    const [reponse, setRepnse] = useState("Candidature en cours");
+    
+    const [files, setFiles] = useState([]);
+
+    const docMess = useRef();
+
+    useEffect(() => {
+
+        const fetcUploads = async () => {
+            let url = host + "/candidature/uploads";
+            let result = await axios.get(url);
+
+            let uploadFiles = result.data;
+            setFiles(uploadFiles);
+        }
+
+        fetcUploads();
+
+
+
+
+        
+    
+        
+        //setFiles(ud)
+        
+
+        
+
+    }, [data])
 
 
 const handleGetReponse = (event)=> {
 let rep = event.target.value;
-setRepnse(rep);
+    setRepnse(rep);
+    
+
+
 
 }
 
@@ -70,6 +102,30 @@ data.map((data,index) => (
                         <div className="col-sm-5">
                             <p><span className="font-weight-bold">Tél: </span> {data.candidat.phone}</p>
                         </div>
+                        </div>
+                        <h6>Documents du candidat</h6>
+                        <div className="row mb-3 bg-light p-3">
+                        {                         
+                            files.map((v) => 
+                                
+                                v.candidat.id == data.candidat.id && v.candidature.id == data.id ?
+                                
+                                <div className="col-md my-3" >
+                                <i class="far fa-file-pdf me-1"></i>
+                                <a href={`${host}/uploads/${v.chemin}` } target="_blank" >{v.name}</a>
+                                </div>
+                            :""
+                             
+                            )
+                                
+                                
+                        }
+                           
+                           
+
+                   
+                         
+                            
                     </div>
 
                     <div>

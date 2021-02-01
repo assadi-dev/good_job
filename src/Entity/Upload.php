@@ -22,11 +22,13 @@ class Upload
     /**
      * @ORM\ManyToOne(targetEntity=Candidat::class, inversedBy="uploads")
      * @ORM\JoinColumn(nullable=false)
+     *  @Groups({"uploadSimple"})
      */
     private $candidat;
 
     /**
      * @ORM\ManyToOne(targetEntity=Candidature::class, inversedBy="uploads")
+     *  @Groups({"uploadSimple"})
      */
     private $candidature;
 

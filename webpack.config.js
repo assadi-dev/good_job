@@ -26,7 +26,7 @@ Encore
     .addEntry('offres_recruteur', './assets/components/recruteur.js')
     .addEntry('candidatures_recruteur', './assets/components/recruteur_candidatures.js')
     .addEntry('listFavories', './assets/components/listFavories.js')
-    //.addEntry('uploadsFileCandidature','./assets/components/uploadsCandidature.js')
+    .addEntry('data_recruteur','./assets/components/infoRecruteur.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
