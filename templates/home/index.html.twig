@@ -9,6 +9,7 @@
 	<link rel="stylesheet" href="/css/carousel_style.css">
 	<link rel="stylesheet" href="/css/home.css">
 	<link rel="stylesheet" href="/css/offres.css">
+	{{ encore_entry_link_tags('searchInput') }}
 	{{ encore_entry_link_tags('offres') }}
 {% endblock %}
 
@@ -18,14 +19,7 @@
 	{% include "/extension/navBar.html.twig" %}
 
 	<div class="bg-dark p-5">
-		<div class="form_search mx-auto">
-			<form class="input-group w-auto my-auto d-none d-sm-flex">
-				<input autocomplete="off" type="search" class="form-control rounded" placeholder="Rechercher par poste" style="min-width: 125px;">
-				<span class="text-white input-group-text border-0 d-none d-lg-flex">
-					<i class="fas fa-search"></i>
-				</span>
-			</form>
-		</div>
+		<div id="searchPoste" class="form_search mx-auto"></div>
 
 	</div>
 
@@ -47,6 +41,7 @@
 	<!-- Flickity JavaScript -->
 	<script src="https://unpkg.com/flickity@2/dist/flickity.pkgd.min.js"></script>
 	<script src="/js/carousel.js"></script>
+	{{ encore_entry_script_tags('searchInput') }}
 	{{ encore_entry_script_tags('offres') }}
 
 {% endblock %}

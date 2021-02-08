@@ -41,14 +41,14 @@
     cursor: pointer;
 }
 
-.dropFilter:hover .fa-chevron-down
+/*.dropFilter:hover .fa-chevron-down
 {
     transform: rotate(-0.5turn);
     -webkit-transform: rotate(-0.5turn);
     -moz-transform: rotate(-0.5turn);
     -ms-transform: rotate(-0.5turn);
     -o-transform: rotate(-0.5turn);
-}
+}*/
 
 .map_icon
 {
