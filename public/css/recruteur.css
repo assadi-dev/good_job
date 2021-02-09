@@ -5,7 +5,7 @@
     width: 280px;
     z-index: 99;
     height: 100vh;
-    top:0;
+    top:1%;
     left:0;
     overflow-y: auto;
     scrollbar-color: hsla(0,0%,100%,.2) #1e2a3a;
@@ -90,6 +90,11 @@
     {
         margin-left: 0;
         padding:0;
+    }
+
+    .navigation
+    {
+        margin-top: 5rem;
     }
 
     #hamBtn
