@@ -12,7 +12,7 @@ const Filtres = () => {
         <Fragment>
 
 
-            <div className="col-sm-4 pt-3">
+            <div className="col-md-4 pt-3">
 
                 <div className="card">
                     <div className="p-3">

@@ -120,21 +120,21 @@ const DataRecruteur = () => {
 
     
     return (
-        <div>
+        <div className="container">
             <div className="my-3 py-3">
                 <h2>Infos personnel</h2>
             </div>
             <div className="container">
                 <form action="" onSubmit={(e)=>handleSubmitRecruteur(e,recruteur)}>
                     <div className="form-group row mb-3">
-                        <label htmlFor="nom" className="col-md-1 col-form-label">Nom : </label>
+                        <label htmlFor="nom" className="col-form-label label_rec">Nom : </label>
                         <div className="col-sm-5 col-md-3">
                             
                             <input type="text" name="nom" id="nom" className="form-control" placeholder="Nom"  value={recruteur.nom} onChange={(e)=>handleUpdateRecruteur(e)}   />
                         </div>
                     </div>
                     <div className="form-group row mb-3">
-                        <label htmlFor="prenom" className="col-md-1 col-form-label">Prénom : </label>
+                        <label htmlFor="prenom" className=" col-form-label label_rec">Prénom : </label>
                         <div className="col-sm-5 col-md-3">
                             
                             <input type="text" name="prenom" id="prenom" className="form-control" placeholder="Prénom"  value={recruteur.prenom} onChange={(e)=>handleUpdateRecruteur(e)}   />
@@ -143,7 +143,7 @@ const DataRecruteur = () => {
 
 
                     <div className="form-group row mb-3">
-                        <label htmlFor="birth" className="col-md-1 col-form-label">Né(e) le : </label>
+                        <label htmlFor="birth" className="col-form-label label_rec">Né(e) le : </label>
                         <div className="col-sm-5 col-md-3">
                             
                             <input type="date" name="birth" id="birth" className="form-control" placeholder="Date de naissance"  value={recruteur.birth} onChange={(e)=>handleUpdateRecruteur(e)}  />
@@ -151,7 +151,7 @@ const DataRecruteur = () => {
                     </div>
 
                     <div className="form-group row mb-3">
-                        <label htmlFor="entreprise" className="col-md-1 col-form-label">société : </label>
+                        <label htmlFor="entreprise" className="col-form-label label_rec">société : </label>
                         <div className="col-sm-5 col-md-3">
                             
                             <input type="text" name="entreprise" id="entreprise" className="form-control" placeholder="Entreprise"  value={recruteur.entreprise} onChange={(e)=>handleUpdateRecruteur(e)}  />
@@ -159,7 +159,7 @@ const DataRecruteur = () => {
                     </div>
 
                     <div className="form-group row mb-3">
-                        <label htmlFor="email" className="col-md-1 col-form-label">Email : </label>
+                        <label htmlFor="email" className="col-form-label label_rec">Email : </label>
                         <div className="col-sm-5 col-md-3">
                             
                             <input type="email" name="email" id="email" className="form-control" placeholder="Email"  value={recruteur.email} onChange={(e)=>handleUpdateRecruteur(e)}  />
@@ -167,7 +167,7 @@ const DataRecruteur = () => {
                     </div>
 
                     <div className="form-group row mb-3">
-                        <label htmlFor="phone" className="col-md-1 col-form-label">Téléphone : </label>
+                        <label htmlFor="phone" className="col-form-label label_rec">Téléphone : </label>
                         <div className="col-sm-5 col-md-3">
                             
                             <input type="tel" name="phone" id="phone" className="form-control" placeholder="Téléphone"  value={recruteur.phone} onChange={(e)=>handleUpdateRecruteur(e)} />

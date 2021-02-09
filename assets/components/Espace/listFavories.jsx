@@ -74,13 +74,13 @@ return(
 				</span>
 			</span>
 
-			<div className="pictureEntreprise col-sm-2 text-center p-3">
+			<div className="pictureEntreprise col-3 col-sm-2 text-center p-3">
 				<img src="https://mdbootstrap.com/img/logo/mdb192x192.jpg" className="img-fluid" alt="Logo Societé" />
 			</div>
 			<div className="col-sm-7 pt-3 ">
 				<p className="mb-0"></p>
-				<h5>{item.offre.name }</h5>
-				<div className="d-flex justify-content-start">
+				<h5 className="offre_title" >{item.offre.name }</h5>
+				<div className="offre_description d-flex justify-content-start">
 					<span className="cdi_icon">
 						<i className="fas fa-clipboard-list"></i>
 						{ item.offre.contrat}</span>
@@ -88,13 +88,13 @@ return(
 						<i className="fas fa-map-marker-alt"></i>
 						{ item.offre.ville}</span>
 				</div>
-				<span>{item.offre.create_at }</span>
+				<span className="text-muted offre_description" >{item.offre.create_at }</span>
 
 			</div>
-			<div className="col-sm-2 pt-3 d-flex justify-content-sm-evenly">
+			<div className="showOffre_btn_pos col-sm-3 pt-3 d-flex justify-content-sm-evenly">
 
 					<button
-						className="btn btn-primary btn-rounded my-auto"
+						className="btn btn-primary btn-rounded my-auto text_button"
 					
 						onClick={()=> window.location.href = `/offre/${item.offre.id}`}
 					

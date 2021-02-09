@@ -4,6 +4,14 @@
 {% endblock %}
 
 {% block header %}
-	<h1 class="my-5">
-		{{ app.request.get('_route') }}</h1>
+	<div class="text-center">
+		<div class="mt-3">
+			<i class="far fa-user fa-3x"></i>
+			<p class="my-2">
+				Se connecter en tant que candidat</p>
+			<p>
+				<a href="{{path('accueil')}}">Retourner à l'accueil</a>
+			</p>
+		</div>
+	</div>
 {% endblock %}

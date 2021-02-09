@@ -27,13 +27,21 @@
 	<body>
 		{% include "extension/navBar.html.twig" %}
 		{% include "extension/sidebarRecruteur.html.twig" %}
-		<div class="wrapper"> {% block body %}{% endblock %}
+		<div class="wrapper">
+			<div class="mt-2 py-2 position-relative">
+				<span id="hamBtn">
+					<i class="fas fa-bars"></i>
+				</span>
 			</div>
 
+			{% block body %}{% endblock %}
+		</div>
 
-			<!-- MDB -->
-			<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.js"></script>
 
-			{% block javascripts %}{% endblock %}
-		</body>
-	</html>
+		<!-- MDB -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.0.0/mdb.min.js"></script>
+		<script type="text/javascript" src="{{relative_path('/js/recruteur.js')}}"></script>
+
+		{% block javascripts %}{% endblock %}
+	</body>
+</html>

@@ -3,6 +3,13 @@
     width: 50%;
 }
 
+.showOffre_btn_pos
+{
+    position: absolute;
+    right: 0;
+    bottom: 10%;
+}
+
 .favoris_btn
 {
     position: absolute;
@@ -75,4 +82,12 @@
 .linkAddFavori:hover
 {
     color: initial;
+}
+
+@media screen and (max-width:798px)
+{
+    .favoris_btn
+    {
+        font-size: 1rem !important;
+    }
 }

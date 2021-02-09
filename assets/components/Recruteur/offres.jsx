@@ -138,7 +138,7 @@ const Offres = () => {
                 </div>
 
                 
-                <div className="card-body">
+                <div className="card-body table-responsive">
                     
                     <table className="table text-center">
                     <thead>

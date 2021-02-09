@@ -8,8 +8,10 @@ var flkty = new Flickity( carousel, {
   wrapAround: true,
   groupCells: 1,
   initialIndex: 2,
-  pageDots: false
+  pageDots: false,
+
 });
+
 
 
 document.querySelector(".carouselContain").classList.add("show");
