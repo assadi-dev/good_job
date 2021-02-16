@@ -4,7 +4,8 @@ import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
 import { host } from '../Api';
 import { useSelector, useDispatch ,connect} from 'react-redux';
-import {apiCall} from '../redux/offres/actionOffres'
+import { apiCall } from '../redux/offres/actionOffres';
+
 
 
 
@@ -109,7 +110,7 @@ const ListOffres = () => {
 								<button
 									className="btn btn-primary btn-rounded my-auto"
 					
-									onClick={() => window.location.href = `/offre/${item.id}`}
+									onClick={() => window.location.href = `${host}/offre/${item.id}`}
 					
 								>
 									<span className="text_button" >voir l'offre</span>

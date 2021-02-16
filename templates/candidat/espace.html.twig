@@ -4,8 +4,8 @@
 {% endblock %}
 
 {% block stylesheets %}
-	<link rel="stylesheet" href="/css/home.css">
-	<link rel="stylesheet" href="/css/offres.css">
+	<link rel="stylesheet" href={{relative_path("/css/home.css")}}>
+	<link rel="stylesheet" href={{relative_path("/css/offres.css")}}>
 	{{ encore_entry_link_tags("infoCandidat") }}
 	{{encore_entry_link_tags("listFavories")}}
 {% endblock %}
