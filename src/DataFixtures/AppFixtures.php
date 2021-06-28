@@ -73,14 +73,6 @@ class AppFixtures extends Fixture
 
         //Générer Connection
 
-        $connection = new Connection();
-
-        $connection->setUsername("candidat@gmail.com")
-            ->setPassword($this->encoder->encodePassword($connection, "password"))
-            ->setRoles("ROLE_CANDIDAT")
-            ->setCreatedAt($generator->dateTimeThisMonth('now', 'Europe/Paris'));
-        $manager->persist($connection);
-
 
         $connection = new Connection();
         $connection->setUsername("recruteur@gmail.com")
@@ -99,10 +91,12 @@ class AppFixtures extends Fixture
             ->setEntreprise($generator->company)
             ->setCreateAt($generator->dateTimeThisMonth('now', 'Europe/Paris'))
             ->setAvatar($generator->imageUrl());
+            
 
 
 
         $manager->persist($recruteur);
+     
 
         $recruteurs[] = $recruteur;
 
@@ -110,6 +104,16 @@ class AppFixtures extends Fixture
         /**
          * Genearteur de candidat
          */
+
+
+        $connection = new Connection();
+
+        $connection->setUsername("candidat@gmail.com")
+            ->setPassword($this->encoder->encodePassword($connection, "password"))
+            ->setRoles("ROLE_CANDIDAT")
+            ->setCreatedAt($generator->dateTimeThisMonth('now', 'Europe/Paris'));
+        $manager->persist($connection);
+
 
         $candidat = new Candidat();
 

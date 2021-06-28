@@ -64,6 +64,8 @@ const ListOffres = () => {
 	};
 
 	useEffect(() => {
+
+
 	
 		dispatch(apiCall(dataFiltres))
 

@@ -3,6 +3,8 @@
     "axios": "^0.21.1",
     "core-js": "^3.8.2",
     "dayjs": "^1.10.3",
+    "dotenv": "^10.0.0",
+    "dotenv-webpack": "^7.0.3",
     "dropzone": "^5.7.2",
     "es-array-method-boxes-properly": "^1.0.0",
     "prop-types": "^15.7.2",
